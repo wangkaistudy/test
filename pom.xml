@@ -7,7 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Exam Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-
+<!--dev-->
 	<properties>
 		<junit.version>4.12</junit.version>
 		<servlet.version>3.1.0</servlet.version>
