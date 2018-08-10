@@ -1,0 +1,320 @@
+		<!--
+        	作者：1487471733@qq.com
+        	时间：2016-12-16
+        	描述：xiehuan
+        -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="/static/css/select.css" />
+		<link rel="stylesheet" href="/static/css/bootstrap-theme.css" />
+		<link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/static/skins/all.css" />
+		<link rel="stylesheet" href="/static/skins/flat/green.css" />
+		<link rel="stylesheet" href="/static/skins/square/square.css" />
+		<link rel="stylesheet" href="/static/assets/remodal-1.1.0/remodal.css">
+		<link rel="stylesheet" href="/static/assets/remodal-1.1.0/remodal-default-theme.css">		
+	</head>
+	<style>
+		#back{
+			background: url(/static/img/back3.png) ;
+			background-size: 100%;
+			background-attachment: fixed;
+			padding-top:-5%;
+		}
+		#fontsize{
+			font-weight: 600;
+			font-size:18px ;
+			line-height: 30px;
+			
+		}
+		ul>li{
+			font-size: 18px;
+		}
+		#ziti{
+			font-size: 50px;
+		}
+		.black{
+			background:rgba(0,0,0,0.1);
+			
+			
+			box-shadow:0 0 10px #696969 !important;
+			padding-top:2%;
+			padding-bottom:3%;
+		
+}
+		}
+		.quanju{
+			padding-top:2%;
+			padding-bottom:3%;
+		}
+		.remodal{
+		 background:rgba(f,f,f,0.1);
+		opacity: 0.8;
+		 
+		}
+		.file {
+			display:block;
+			border: 6px solid rgba(0,0,0,0.5);
+			border-radius: 30px;
+			overflow: hidden;
+			color: #666;
+			text-decoration: none;
+			text-indent: 0;
+			line-height: 20px;
+			width:100px;
+			height:40px;
+			position: absolute;
+			left:1020px;
+			top:15px;
+		}
+		.file:hover {
+			background: #AADFFD;
+			border: 6px solid rgba(0,0,0,0.8);
+			color: #000;
+			text-decoration: none;
+		}
+		.file input {
+			width:100px;
+			height:30px;
+			border: none;
+			border-radius: 30px;
+			text-indent: -10px;
+		}
+
+	</style>
+	
+	<body id="back">
+
+    <section class="quanju black"  style="position: relative">
+<!--header-->
+		<section class="header">
+			<div class="ziti" id="ziti">
+				${tpName}
+			</div>
+		</section>
+<!--返回按钮-->
+		<div class="file" id="back_btn" style="display: none" >
+			<input type="button"  name="button1" id="button1" value="返回首页" onclick="goback()">
+		</div>
+<!--判断题-->
+		<#if (JudgmentQuestion?size>0) >
+
+			<section class="panduan">
+				<h1>判断题</h1>
+				<#list JudgmentQuestion as item>
+				<div  class="col-xs-12" >
+					<!--<h2>第 ${item_index+1} 题</h2>-->
+					<article id="fontsize">
+						${item_index+1}.&nbsp;${item.stem}
+					</article>
+					<div style="width: 100%;height: 100px;">
+						<ul>
+							<li><input type="radio" id="${item.questionBankId}" name="${item.questionBankId}" value="1"><label>对</label></li>
+							<li><input type="radio" id="${item.questionBankId}" name="${item.questionBankId}" value="0"><label>错</label></li>
+						</ul>
+					</div>
+					<div class="alert alert-success text-center hidden success-${item.questionBankId}">正确</div>
+					<div class="alert alert-danger text-center hidden danger-${item.questionBankId}">错误&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;答案:<span>对</span></div>
+					<div class="alert alert-success hidden answer-${item.questionBankId}">
+						<span>答案解析:</span>
+						<p style="text-indent: 29px"></p>
+					</div>
+				</div>
+				</#list>
+
+			</section>
+		</#if>
+<!--选择题-->
+		<#if (ChoiceQuestion?size>0) >
+			<section class="panduan ">
+				<h1>选择题</h1>
+				<#list ChoiceQuestion as item>
+				<div class="col-xs-12">
+					<!--<h2>第 ${item_index+1} 题</h2>-->
+					<article id="fontsize">
+						${item_index+1}.&nbsp;${item.stem}
+					</article>
+					<ul>
+						<#list item.options as temp>
+						<li><input type="radio" name="${item.questionBankId}" value="${temp.op}"><label>${temp.op}.</label><label style="margin-left: 2px">${temp.content}</label> </li>
+						</#list>
+					</ul>
+				</div>
+				<div class="clearfix"></div>
+				<div class="alert alert-success text-center hidden success-${item.questionBankId}">正确</div>
+				<div class="alert alert-danger text-center hidden danger-${item.questionBankId}">
+					错误&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;答案:<span>对</span>
+				</div>
+					<div class="alert alert-success hidden answer-${item.questionBankId}">
+						<span>答案解析:</span>
+						<p style="text-indent: 29px"></p>
+					</div>
+				</#list>
+			</section>
+		</#if>
+	
+	<div id="mmm" style="background: #ccc; border-radius: 10px; opacity:0.5; width: 210px;  right: 0; top: 0; margin-right: 10px; margin-top: 10px;  position: fixed; ">
+		<h1 style="font-size: 48px;text-align: center; margin-top: 10px"><spna id="time"></spna></h1>
+	</div>	
+	
+	<div>
+		<a id="testpaperBt" class="link link--highlighted btn btn-success btn-lg" href="#modal" style="opacity:0.8; position: fixed; right: 0; bottom: 0; margin-right: 10px; margin-bottom: 10px">提交试卷</a>
+		<!-- <button id="testpaper" class="btn btn-success btn-lg">提交试卷</button> -->
+	</div>	
+	
+	
+<div class="remodal " data-remodal-id="modal" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
+  <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
+  <div>
+    <h2 id="modal1Title">是否提交试卷</h2>
+    <p id="modal1Desc">
+     	你好！是否提交试卷。
+    </p>
+  </div>
+  <br>
+  <button data-remodal-action="cancel" class="remodal-cancel">取消</button>
+  <button data-remodal-action="confirm" class="remodal-confirm" id="testpaper">提交</button>
+</div>
+
+<div class="remodal" data-remodal-id="modal-score" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
+  <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
+  <div>
+    <h2 id="modal1Title">考试成绩 <span id="score">0</span>分</h2>
+  </div>
+  <br>
+  <button data-remodal-action="cancel" class="remodal-cancel">查看答案</button>
+</div>
+	
+<!--js-->
+<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js" ></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js" ></script>
+<script type="text/javascript" src="/static/js/icheck.min.js" ></script>
+<script src="/static/assets/remodal-1.1.0/remodal.js"></script>
+<script type="text/javascript" src="/static/js/common.js"></script>
+<!--跳转首页面-->
+<script>
+    function goback(){
+        window.location.href="index.html";
+    }
+</script>
+<script>
+$(document).ready(function(){
+  $('input').iCheck({
+    checkboxClass: 'icheckbox_square',
+    radioClass: 'iradio_square',
+    increaseArea: '20%' // optional
+  });
+
+    setCountDown_time();
+
+});
+
+/*倒计时js*/
+var sec = '${sec}',min ='${min}';
+var format = function(str) {
+    if(parseInt(str) < 10) {
+        return "0" + str;
+    }
+    return str;
+};
+var idt;
+function setCountDown_time(){
+     idt = window.setInterval("ls();", 1000);
+}
+function ls() {
+    sec--;
+
+    if(parseInt(min) <= 0 && parseInt(sec) == 0) {
+        window.clearInterval(idt);
+        $("#testpaper").click();
+        return;
+    }
+    if(sec <= 0) {
+        min--;
+        sec = 59;
+    }
+    document.getElementById("time").innerHTML = format(min) + "分" + format(sec)+"秒";
+}
+/*倒计时结束*/
+
+var inst = $('[data-remodal-id=modal-score]').remodal();
+
+//history.pushState(null, null, document.URL);
+//window.addEventListener('popstate', function () {
+//    history.pushState(null, null, document.URL);
+//});
+
+function submitPapers(arr) {
+	ajaxSubmitJSON("/exam/submitpapers", JSON.stringify(arr),
+			function(data) {
+				if(data.flag) {
+                    var score = 0;
+                    var temp = 100/data.topicAmount;
+                    $("#mmm").remove();
+                    data = data.judgmentSystem;
+                    data.forEach(function(e) {
+                        if(e.ifCorrect) {
+                            score+=temp;
+                        }
+                        $("#score").text(score);
+                        inst.open();
+                        console.log(e);
+                        if(e.ifCorrect) {
+                            $(".success-"+e.questionBankId).removeClass("hidden");
+                        } else {
+                            $(".danger-"+e.questionBankId).removeClass("hidden");
+                            if(e.answer == 0) {
+                                e.answer = "错";
+                            }
+                            if(e.answer == 1) {
+                                e.answer = "对";
+                            }
+                            $(".danger-"+e.questionBankId+" span").text(e.answer);
+                        }
+                        $(".answer-" + e.questionBankId).removeClass("hidden");
+                        $(".answer-" + e.questionBankId+" p").text(e.answerExt)
+                    });
+                    /*添加按钮隐藏*/
+                    $("#back_btn").show();
+
+				} else {
+					location.href="/exam/error";
+				}
+			},
+			function(data) {
+				alert("错误");
+			}
+		);
+}
+
+var arr = [];
+$("#testpaper").on("click", function(){
+	<#list JudgmentQuestion as item>
+	var item${item.questionBankId} = $('input[name="${item.questionBankId}"]:checked ');
+	arr.push({
+		'questionBankId': $('input[name="${item.questionBankId}"]').attr('name'),
+		'answer': item${item.questionBankId}.val()
+	});
+	</#list>
+	<#list ChoiceQuestion as item>
+	var item${item.questionBankId} = $('input[name="${item.questionBankId}"]:checked ');
+	arr.push({
+		'questionBankId': $('input[name="${item.questionBankId}"]').attr('name'),
+		'answer': item${item.questionBankId}.val()
+	});
+	</#list>
+	console.log(arr);
+	console.log(JSON.stringify({"list":arr}));
+	$("#testpaperBt").remove();
+
+    window.clearInterval(idt)
+	submitPapers(arr);
+});
+
+
+</script>
+	</body>
+</html>

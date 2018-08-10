@@ -1,0 +1,101 @@
+		<!--
+        	作者：1487471733@qq.com
+        	时间：2016-12-16
+        	描述：xiehuan
+        -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="/static/css/select.css" />
+		<link rel="stylesheet" href="/static/css/bootstrap-theme.css" />
+		<link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/static/skins/all.css" />
+		<link rel="stylesheet" href="/static/skins/flat/green.css" />
+		<link rel="stylesheet" href="/static/skins/square/square.css" />
+		<link rel="stylesheet" href="/static/assets/remodal-1.1.0/remodal.css">
+		<link rel="stylesheet" href="/static/assets/remodal-1.1.0/remodal-default-theme.css">	
+	</head>
+	<style>
+		#back{
+			background: url(/static/img/back3.png) ;
+			background-size: 100%;
+			background-attachment: fixed;
+			font-family: "微软雅黑";
+			font-size: 30px;
+		
+		}
+		#fontsize{
+			font-weight: 600;
+			font-size:18px ;
+			line-height: 30px;
+			
+		}
+		ul>li{
+			font-size: 18px;
+		}
+		#ziti{
+			font-size: 50px;
+		}
+
+		.file {
+			display:block;
+			border: 6px solid rgba(0,0,0,0.5);
+			border-radius: 30px;
+			overflow: hidden;
+			color: #666;
+			text-decoration: none;
+			text-indent: 0;
+			line-height: 20px;
+			width:140px;
+			height:50px;
+			position: absolute;
+			left:1700px;
+			top:25px;
+		}
+		.file:hover {
+			background: #edf4fd;
+			border: 5px solid rgba(0,0,0,0.8);
+			color: #000;
+			text-decoration: none;
+		}
+		.file input {
+			width:130px;
+			height:35px;
+			border: none;
+			border-radius: 30px;
+			text-indent: -1px;
+		}
+
+
+	</style>
+	<body id="back">
+
+    <section class="quanju " style="text-align: center" >
+		<!--返回按钮-->
+		<script>
+            function goback(){
+                window.location.href="index.html";
+            }
+		</script>
+
+	<section class="score-1">
+		<span style="text-align: center;">你已经完成了关于本试卷的考试</span><br><span style="text-align: center;">成绩:${Fraction}分</span>
+	</section>
+		<div class="file" >
+			<input type="button" name="button1" id="button1" value="返回首页" onclick="goback()">
+		</div>
+	</section>
+	
+	
+	
+<!--js-->
+<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js" ></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js" ></script>
+<script type="text/javascript" src="/static/js/icheck.min.js" ></script>
+<script src="/static/assets/remodal-1.1.0/remodal.js"></script>
+<script type="text/javascript" src="/static/js/common.js"></script>
+
+	</body>
+</html>

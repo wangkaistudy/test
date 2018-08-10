@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="/static/css/select.css" />
+		<link rel="stylesheet" href="/static/css/bootstrap-theme.css" />
+		<!--<link rel="stylesheet" href="/static/css/bootstrap.min.css" />-->
+		<link rel="stylesheet" href="/static/skins/all.css" />
+		<link rel="stylesheet" href="/static/skins/flat/green.css" />
+		<link rel="stylesheet" href="/static/skins/square/square.css" />
+		<link rel="stylesheet" href="/static/assets/toastr-master/toastr.css" />
+	</head>
+	<style>
+		.showmsg {
+			position: fixed;
+			top: 30%;
+			left:45%;
+			height: 70px;
+			display: none;
+			z-index: 2015;
+			text-align: center;
+		}
+		.showmsg>span {
+			color: #ffffff;
+			display: block;
+			line-height: 70px;
+			font-size: 18px;
+			padding: 10px 15px;
+			border-radius: 8px;
+			background-color: rgb(102, 102, 102);
+			font-family: "微软雅黑";
+			box-shadow:0px 8px 30px rgba(0, 0, 0, 0.06);
+		}
+	</style>
+	<style>
+		#back{
+			background: url(/static/img/back3.png) ;
+			background-size: cover;
+			background-attachment: fixed;
+			padding-bottom:4%;
+		
+		}
+		#fontsize{
+			font-weight: 600;
+			font-size:18px ;
+			line-height: 30px;
+			
+		}
+		ul>li{
+			font-size: 18px;
+		}
+		#ziti{
+			font-size: 50px;
+		}
+		.box {
+			width: 100%;
+			padding: 10px;
+		}
+		.box-title {
+			text-align: center;
+			font-size: 26px;
+			font-family: "微软雅黑";
+		}
+		.box-date {
+			text-align: center;
+			display: inherit;
+		}
+		.btn-info {
+    color: #fff;
+    background-color: #c0c0c0;
+    border-color: #A9A9A9;
+}
+	.btn-info:hover{
+    color: #fff;
+    background-color: #A9A9A9;
+    border-color: #696969;
+}
+.btn-info:focus{
+    color: #fff;
+    background-color: #696969 !important;
+    border-color: #696969 !important;
+    border-shadow:#696969 !important;
+        box-shadow: inset 0 1px 0 rgba(169, 169,169, .15), 0 1px 1px rgba(0, 0, 0, .075) !important;
+    
+}
+	.time{
+	text-align: center;
+	}
+	.black{
+			background:rgba(0,0,0,0.1);
+			
+			
+			box-shadow:0 0 10px #696969 !important;
+			
+			
+		}
+		.quanju{
+			padding-top:2%;
+			padding-bottom:3%;
+			min-width: 1130px;
+		}
+
+		.form_div{
+			width:336px;
+			margin:0px auto;
+			font-size: 18px;
+		}
+        #ziti{
+			text-align: center;
+			font-size: 40px;
+		}
+		.smtable{
+			width: 100%;
+		}
+        .smtable tr{
+           margin-bottom: 10px;
+			display:table;
+			width: 100%;
+		}
+		.smtable .row{
+			width:120px;
+			margin-right: 10px;
+		}
+		.smtable td input{
+			background:#c2c2c2;
+			font-size: 16px;
+			width: 223px;
+			height: 30px;
+		}
+		.smtable td span{
+			font-size: 16px;
+			color:#333;
+			width: 223px;
+			height: 30px;
+            display: block;
+		}
+		#submit_btn{
+			appearance: none;
+			-moz-appearance: none;
+			-ms-appearance: none;
+			-webkit-appearance: none;
+			-o-appearance: none;
+			width:140px;
+			height:40px;
+			border:none;
+			background:#b5b5b5;
+			margin: 10px auto;
+			border-radius:6px;
+			-webkit-border-radius:6px;
+			-moz-border-radius:6px;
+			-o-border-radius:6px;
+			-ms-border-radius:6px;
+			display: block;
+		}
+		#submit_btn:hover{
+			background: rgba(0,0,0,0.5);
+			color:#fff;
+		}
+	</style>
+	<body id="back">
+
+    <section class="quanju black">
+<!--header-->
+		<section class="header">
+			<div class="ziti" id="ziti">
+				修改密码
+			</div>
+		</section>
+<!--判断题-->
+		<section class="container" style="margin-top: 50px;">
+			<div class="form_div">
+				<form id="form_id">
+					<table class="smtable">
+						<tr>
+							<td class="row">用户账号:</td><td><span>${user.userId}</span></td>
+						</tr>
+						<tr>
+							<td class="row">用户姓名:</td><td><span>${user.userName}</span></td>
+						</tr>
+						<tr>
+							<td class="row">原密码:</td>
+							<td><input type="password" name="old_pass" value="" maxlength="20" placeholder="请输入原密码" /></td>
+						</tr>
+						<tr>
+							<td class="row">新密码:</td>
+							<td><input type="password" name="new_pass" value="" maxlength="20" placeholder="请输入新密码" /></td>
+						</tr>
+						<tr>
+							<td class="row">重复新密码:</td>
+							<td><input type="password" name="re_new_pass" value="" maxlength="20" placeholder="请再次输入新密码" /></td>
+						</tr>
+
+						<tr>
+							<td colspan="2">
+								<input type="button" value="提交" id="submit_btn" onclick="ajax_submit()">
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</section>
+
+	</section>
+	
+	
+	
+<!--js-->
+<script type="text/javascript" src="/static/js/jquery.js" ></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js" ></script>
+<script type="text/javascript" src="/static/js/icheck.min.js" ></script>
+<script type="text/javascript" src="/static/assets/toastr-master/toastr.js"></script>
+<script type="text/javascript" src="/static/js/common.js"></script>
+	<script type="text/javascript">
+		function showmsg(msg) {
+			var c = $(".showmsg").attr("class");
+			if (c == 'showmsg') {
+				$(".showmsg").fadeIn(100);
+				$(".showmsg>span").text(msg);
+			} else {
+				var htm = '<div class="showmsg"><span>' + msg + '</span></div>';
+				$("body").append(htm);
+				$(".showmsg").fadeIn(1000);
+			}
+			setTimeout(function() {
+				$(".showmsg").fadeOut(300);
+			}, 2200);
+		}
+
+		function ajax_submit() {
+			var old_pass = $("input[name='old_pass']").val();
+			var new_pass = $("input[name='new_pass']").val();
+			var re_new_pass = $("input[name='re_new_pass']").val();
+			if(old_pass=='') {
+				showmsg('请输入原密码');
+				return;
+			}
+			if(new_pass=='') {
+				showmsg('请输入新密码');
+				return;
+			}
+			if(re_new_pass=='') {
+				showmsg('请重复输入新密码');
+				return;
+			}
+			if(new_pass!=re_new_pass) {
+				showmsg('两次密码输入不一致');
+				return;
+			}
+			$("#submit_btn").attr("onclick","");
+			$.ajax({
+				url:"/exam/update_pass",
+				data:$("#form_id").serialize(),
+				async:false,
+				type:"post",
+				success:function(obj) {
+					if(obj) {
+						location.href="/login.html";
+					}else {
+						showmsg('修改失败');
+						$("#submit_btn").attr("onclick","ajax_submit()");
+					}
+				},
+				error:function() {
+					$("#submit_btn").attr("onclick","ajax_submit()");
+				},
+				dataType:"json"
+			});
+
+		}
+	</script>
+
+	</body>
+</html>
